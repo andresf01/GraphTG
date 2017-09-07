@@ -52,4 +52,4 @@ for video_name in sorted(video_titles):
         # import random
         title += " - {}".format(list(video_titles[video_name].keys())[0].upper())
 
-    py.image.save_as({'data':data, 'layout':go.Layout(title=title)}, video_name, format='png')
+    py.image.save_as({'data':data, 'layout': {'title' : title, 'xaxis':{'title':'Preset'}, 'yaxis':{'title':'PSNR'}}}, video_name, format='png', width=1280, height=720)

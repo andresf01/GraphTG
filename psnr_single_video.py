@@ -49,4 +49,4 @@ if not (len(results) > 1):
     import random
     title += " - {}".format(list(results.keys())[0].upper())
 
-py.image.save_as({'data':data, 'layout':go.Layout(title=title)}, "_".join(video_name.split(" ")), format='png')
+py.image.save_as({'data':data, 'layout':go.Layout(title=title)}, "_".join(video_name.split(" ")), format='png', width=1280, height=720)

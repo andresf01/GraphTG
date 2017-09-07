@@ -49,4 +49,4 @@ data = go.Data(data1)
 # title = "{}".format(video_name)
 title = "Real Time"
 
-py.image.save_as({'data':data, 'layout':{'title':title, 'xaxis':{'title': 'Video'}, 'yaxis':{'title':'PSNR'}}}, 'multiple_plot', format='png')
+py.image.save_as({'data':data, 'layout':{'title':title, 'xaxis':{'title': 'Video'}, 'yaxis':{'title':'PSNR'}}}, 'multiple_plot', format='png', width=1280, height=720)

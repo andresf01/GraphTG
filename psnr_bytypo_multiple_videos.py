@@ -2,8 +2,11 @@ import plotly.plotly as py
 import plotly.graph_objs as go
 import numpy.random as np
 
-files_names = []
+# Style
+symbols = ['circle','x','diamond','triangle-up','star-triangle-up']
+
 # Load name of files
+files_names = []
 with open ('list', 'r') as f:
     while True:
         read_data = f.readline()
@@ -31,6 +34,7 @@ for name in files_names:
     pass
 
 traces = []
+sample = 0
 for video_codec in sorted(video_titles):
     for video_type in sorted(video_titles[video_codec]):
         x_axis = []
@@ -39,7 +43,9 @@ for video_codec in sorted(video_titles):
             x_axis.append(video_name)
             psnr.append(video_titles[video_codec][video_type][video_name])
         color = 'rgb({},{},{})'.format(np.randint(0,255),np.randint(0,255),np.randint(0,255))
-        traces.append({'x' : x_axis, 'y' : psnr, 'marker':{"color": color, "size": 12},  "mode": "markers", "name": '{}-{}'.format(video_codec,video_type), "type":"scatter" })
+        symbol = symbols[(sample)%(len(symbols))]
+        traces.append({'x' : x_axis, 'y' : psnr, 'marker':{"color": color, "size": 14, 'symbol': symbol, 'opacity':0.75},  "mode": "markers", "name": '{}-{}'.format(video_codec,video_type), "type":"scatter" })
+        sample += 1
         
 data1 = []
 for item in traces:
@@ -49,4 +55,4 @@ data = go.Data(data1)
 # title = "{}".format(video_name)
 title = "PSNR - Videos and Modes"
 
-py.image.save_as({'data':data, 'layout':{'title':title, 'xaxis':{'title': 'Video'}, 'yaxis':{'title':'PSNR'}}}, 'multiple_plot', format='png')
+py.image.save_as({'data':data, 'layout':{'title':title, 'xaxis':{'title': 'Video'}, 'yaxis':{'title':'PSNR'}}}, 'multiple_plot', format='png', width=1280, height=720)

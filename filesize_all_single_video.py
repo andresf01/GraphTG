@@ -22,7 +22,7 @@ for info in files_names:
     if not video_name in video_list:
         video_list[video_name] = {}
     video_list[video_name][video_typo] = video_size
-    
+
 # Human values
 kilo = 1024
 mega = 1024 * kilo
@@ -39,6 +39,4 @@ for video in sorted(video_list):
     # print ("typos: {} values: {}".format(typos, values))
     color = 'rgba({},{},{},0.6)'.format(np.randint(0,255),np.randint(0,255),np.randint(0,255))
     data = [(go.Bar(x=typos, y=values, text=values, textposition = 'auto', name=video, marker=dict(color=color)))]
-    py.image.save_as({'data':data, 'layout':go.Layout(title=" ".join(video.split("_"))+" (MB)")}, video, format='png')
-
-
+    py.image.save_as({'data':data, 'layout':go.Layout(title=" ".join(video.split("_"))+" (MB)")}, video, format='png', width=1280, height=720)

@@ -59,7 +59,7 @@ def runPlot(name="null", typo="null"):
     
     title = "{}".format(video_name)
     
-    py.image.save_as({'data':data, 'layout':go.Layout(title=title)}, 'bar_plot', format='png')
+    py.image.save_as({'data':data, 'layout':go.Layout(title=title)}, 'bar_plot', format='png', width=1280, height=720)
 
 if __name__ == '__main__':
     import sys
