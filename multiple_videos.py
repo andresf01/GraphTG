@@ -16,11 +16,9 @@ video_titles = {}
 tipos = 2
 codecs = 2
 
-
 # Read files, and load values in vars
 for name in files_names:
     video_name = name.split("_")[0]
-    # print(video_name)
     video_type = name.split("_")[1]
     video_codec = name.split("_")[2].split(".")[0]
     if not video_name in video_titles:
