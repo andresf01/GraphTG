@@ -11,12 +11,12 @@ with open ('list', 'r') as f:
             break
         files_names.append(read_data[:-1])
 
-
+# Set video name
 video_name_tmp = files_names[0].split("_")[:-2]
 video_name = " ".join(video_name_tmp)
 
 results = {}
-# Read files, and load values in vars
+# Read files, and load values in dictionary like { CodecN : { typoN : psnrN }}
 for name in files_names:
     video_type = name.split("_")[-2]
     video_codec = name.split("_")[-1].split(".txt")[0]
@@ -25,16 +25,13 @@ for name in files_names:
     with open (name, 'r') as value:
         results[video_codec][video_type] = value.readline()
 
-# label = []
-# typos = []
-# psnr = []
 trace = []
 
+# Create trace for every codec
 for key in sorted(results):
-    label = []
     typos = []
     psnr = []
-    label.append(key)
+    # Read PSNR and typo to plot in a single trace
     for typo in sorted(results[key]):
         typos.append(typo)
         psnr.append(results[key][typo])
