@@ -3,6 +3,7 @@ import plotly.graph_objs as go
 import numpy.random as np
 
 files_names = []
+colors = {'vp9':'rgb(249,140,182)','tg':'rgb(133,202,93)','hm':'rgb(117,137,191)'}
 # Load name of files
 with open ('list', 'r') as f:
     while True:
@@ -39,7 +40,7 @@ for video_name in sorted(video_titles):
             typos.append(typo)
             psnr.append(video_titles[video_name][video_codec][typo])
             pass
-        color = 'rgba({},{},{},0.6)'.format(np.randint(0,255),np.randint(0,255),np.randint(0,255))
+        color = colors[video_codec]
         trace.append(go.Bar(x=typos, y=psnr, text=psnr, textposition = 'auto', name=video_codec, marker=dict(color=color)))
 
     data = []
@@ -52,4 +53,4 @@ for video_name in sorted(video_titles):
         # import random
         title += " - {}".format(list(video_titles[video_name].keys())[0].upper())
 
-    py.image.save_as({'data':data, 'layout': {'title' : title, 'xaxis':{'title':'Preset'}, 'yaxis':{'title':'PSNR'}}}, video_name, format='png', width=1280, height=720)
+    py.image.save_as({'data':data, 'layout': {'title' : title, 'xaxis':{'title':'Preset'}, 'yaxis':{'title':'PSNR'}}}, video_name, format='png')

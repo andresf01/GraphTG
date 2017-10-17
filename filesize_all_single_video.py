@@ -3,6 +3,7 @@ import plotly.graph_objs as go
 import numpy.random as np
 
 files_names = []
+colors = {'vp9':'rgb(249,140,182)','tg':'rgb(133,202,93)','hm':'rgb(117,137,191)'}
 # Load name of files
 with open ('list', 'r') as f:
     while True:
@@ -18,10 +19,19 @@ for info in files_names:
     video_name = "_".join(info.split(" ")[-1].split(".")[0].split("_")[:-1])
     video_typo = info.split(" ")[-1].split(".")[0].split("_")[-1]
     video_size = info.split(" ")[-5]
+    video_codec = info.split(" ")[-1].split(".")[-1]
+    if (video_codec == 'webm'):
+        video_codec = 'vp9'
+    if (video_codec == 'hevc'):
+        video_codec = 'hm'
+    if (video_codec == 'bit'):
+        video_codec = 'tg'
     # print ("Original size: {}".format(video_size))
     if not video_name in video_list:
         video_list[video_name] = {}
-    video_list[video_name][video_typo] = video_size
+    if not video_codec in video_list[video_name]:
+        video_list[video_name][video_codec] = {}
+    video_list[video_name][video_codec][video_typo] = video_size
 
 # Human values
 kilo = 1024
@@ -29,14 +39,20 @@ mega = 1024 * kilo
 
 # Organise axis to plot and export in PNG Image
 for video in sorted(video_list):
-    # trace = []
-    typos = []
-    values = []
-    for typo in sorted(video_list[video]):
-        typos.append(typo)
-        # print ("Size: {} Converted: {}".format(video_list[video][typo],int(video_list[video][typo])/mega))
-        values.append("{0:.2f}".format( int(video_list[video][typo])/mega) )
-    # print ("typos: {} values: {}".format(typos, values))
-    color = 'rgba({},{},{},0.6)'.format(np.randint(0,255),np.randint(0,255),np.randint(0,255))
-    data = [(go.Bar(x=typos, y=values, text=values, textposition = 'auto', name=video, marker=dict(color=color)))]
-    py.image.save_as({'data':data, 'layout':go.Layout(title=" ".join(video.split("_"))+" (MB)")}, video, format='png', width=1280, height=720)
+    trace = []
+    for video_codec in sorted(video_list[video]):
+        typos = []
+        values = []
+        for typo in sorted(video_list[video][video_codec]):
+            typos.append(typo)
+            # print ("Size: {} Converted: {}".format(video_list[video][typo],int(video_list[video][typo])/mega))
+            values.append("{0:.2f}".format( int(video_list[video][video_codec][typo])/mega) )
+        # print ("typos: {} values: {}".format(typos, values))
+        color = colors[video_codec]
+        trace.append(go.Bar(x=typos, y=values, text=values, textposition = 'auto', name=video_codec, marker=dict(color=color)))
+    
+    data = []
+    for item in trace:
+        data.append(item)
+    
+    py.image.save_as({'data':data, 'layout':{'title':" ".join(video.split("_")), 'xaxis':{'title':'Preset'}, 'yaxis':{'title':'Size (MB)'}}}, video, format='png')

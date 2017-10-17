@@ -3,7 +3,8 @@ import plotly.graph_objs as go
 import numpy.random as np
 
 # Style
-symbols = ['circle','x','diamond','triangle-up','star-triangle-up']
+symbols = ['x-thin-open','star-triangle-up','star-triangle-down','circle','hexagram-open','triangle-up-open','star-triangle-up','circle-open-dot','pentagon']
+colors = {'vp9':'rgb(249,140,182)','tg':'rgb(133,202,93)','hm':'rgb(117,137,191)'}
 
 # Load name of files
 files_names = []
@@ -34,17 +35,19 @@ for name in files_names:
     pass
 
 traces = []
-sample = 0
+
 for video_codec in sorted(video_titles):
+    sample = 0
+    color = colors[video_codec]
     for video_type in sorted(video_titles[video_codec]):
         x_axis = []
         psnr = []
         for video_name in sorted(video_titles[video_codec][video_type]):
             x_axis.append(video_name)
             psnr.append(video_titles[video_codec][video_type][video_name])
-        color = 'rgb({},{},{})'.format(np.randint(0,255),np.randint(0,255),np.randint(0,255))
+        # color = 'rgb({},{},{})'.format(np.randint(0,255),np.randint(0,255),np.randint(0,255))
         symbol = symbols[(sample)%(len(symbols))]
-        traces.append({'x' : x_axis, 'y' : psnr, 'marker':{"color": color, "size": 14, 'symbol': symbol, 'opacity':0.75},  "mode": "markers", "name": '{}-{}'.format(video_codec,video_type), "type":"scatter" })
+        traces.append({'x' : x_axis, 'y' : psnr, 'marker':{"color": color, "size": 14, 'symbol': symbol, 'opacity':0.7},  "mode": "markers", "name": '{}-{}'.format(video_codec,video_type), "type":"scatter" })
         sample += 1
         
 data1 = []
@@ -53,6 +56,6 @@ for item in traces:
     data1.append(item)
 data = go.Data(data1)
 # title = "{}".format(video_name)
-title = "PSNR - Videos and Modes"
+graph_title = "PSNR - Videos (slow movement) and Modes"
 
-py.image.save_as({'data':data, 'layout':{'title':title, 'xaxis':{'title': 'Video'}, 'yaxis':{'title':'PSNR'}}}, 'multiple_plot', format='png', width=1280, height=720)
+py.image.save_as({'data':data, 'layout':{'title':graph_title, 'xaxis':{'title': 'Video'}, 'yaxis':{'title':'PSNR'}}}, 'multiple_plot', format='png', width=1280, height=720)

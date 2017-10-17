@@ -3,7 +3,8 @@ import plotly.graph_objs as go
 import numpy.random as np
 
 # Style
-symbols = ['circle','x','diamond','triangle-up','star-triangle-up']
+symbols = ['x-thin-open','star-triangle-up','star-triangle-down','circle','hexagram-open','triangle-up-open','star-triangle-up','circle-open-dot','pentagon']
+colors = {'vp9':'rgb(249,140,182)','tg':'rgb(133,202,93)','hm':'rgb(117,137,191)'}
 sample = 0
 
 files_names = []
@@ -23,6 +24,10 @@ for info in files_names:
     video_codec = info.split("_")[-1].split(".")[-1]
     if (video_codec == 'webm'):
         video_codec = 'vp9'
+    if (video_codec == 'hevc'):
+        video_codec = 'hm'
+    if (video_codec == 'bit'):
+        video_codec = 'tg'
     video_type = info.split(" ")[-1].split(".")[0].split("_")[-1]
     video_size = info.split(" ")[-5]
     # print ("Name:{} Codec:{} Type:{} Size:{}".format(video_name, video_codec, video_type, video_size))
@@ -40,13 +45,13 @@ mega = 1024 * kilo
 # Organise axis to plot and export in PNG Image
 traces = []
 for video_codec in sorted(video_titles):
+    color = colors[video_codec]
     for video_type in sorted(video_titles[video_codec]):
         x_axis = []
         size = []
         for video_name in sorted(video_titles[video_codec][video_type]):
             x_axis.append(video_name)
             size.append(video_titles[video_codec][video_type][video_name])
-        color = 'rgb({},{},{})'.format(np.randint(0,255),np.randint(0,255),np.randint(0,255))
         symbol = symbols[(sample)%(len(symbols))]
         traces.append({'x' : x_axis, 'y' : size, 'marker':{"color": color, "size": 14, 'symbol': symbol, 'opacity':0.75},  "mode": "markers", "name": '{}-{}'.format(video_codec,video_type), "type":"scatter" })
         sample += 1
