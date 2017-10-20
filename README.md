@@ -1,10 +1,10 @@
 # GraphTG
 
-GraphTG is a set of scripts for getting graphs automatically, it works with [Plotly Technology](plot.ly) and works with specific files as is described next
+GraphTG is a set of scripts for getting graphs automatically, it works with [Plotly Technology](http://plot.ly) and works with specific files as is described next
 
 ## Requirements
 
- - [Plotly](plot.ly) library and configured account
+ - [Plotly](http://plot.ly) library and configured account
  - Python3+
 
 ## Files style
