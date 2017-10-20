@@ -1,4 +1,4 @@
-# GraphTg
+# GraphTG
 
 GraphTG is a set of scripts for getting graphs automatically, it works with [Plotly Technology](plot.ly) and works with specific files as is described next
 
