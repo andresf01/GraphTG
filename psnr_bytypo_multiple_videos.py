@@ -1,6 +1,5 @@
 import plotly.plotly as py
 import plotly.graph_objs as go
-import numpy.random as np
 
 # Style
 symbols = ['x-thin-open','star-triangle-up','star-triangle-down','circle','hexagram-open','triangle-up-open','star-triangle-up','circle-open-dot','pentagon']

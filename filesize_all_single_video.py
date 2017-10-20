@@ -1,6 +1,5 @@
 import plotly.plotly as py
 import plotly.graph_objs as go
-import numpy.random as np
 
 files_names = []
 colors = {'vp9':'rgb(249,140,182)','tg':'rgb(133,202,93)','hm':'rgb(117,137,191)'}

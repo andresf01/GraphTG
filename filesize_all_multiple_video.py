@@ -1,6 +1,5 @@
 import plotly.plotly as py
 import plotly.graph_objs as go
-import numpy.random as np
 
 # Style
 symbols = ['x-thin-open','star-triangle-up','star-triangle-down','circle','hexagram-open','triangle-up-open','star-triangle-up','circle-open-dot','pentagon']
@@ -65,15 +64,3 @@ data = go.Data(data1)
 title = "File Size (MB) - Videos and Modes"
 
 py.image.save_as({'data':data, 'layout':{'title':title, 'xaxis':{'title': 'Video'}, 'yaxis':{'title':'Size (MB)'}}}, 'filesize_multiple_video', format='png', width=1280, height=720)
-# for video in sorted(video_titles):
-#     # trace = []
-#     typos = []
-#     values = []
-#     for typo in sorted(video_titles[video]):
-#         typos.append(typo)
-#         # print ("Size: {} Converted: {}".format(video_titles[video][typo],int(video_titles[video][typo])/mega))
-#         values.append("{0:.2f}".format( int(video_titles[video][typo])/mega) )
-#     # print ("typos: {} values: {}".format(typos, values))
-#     color = 'rgba({},{},{},0.6)'.format(np.randint(0,255),np.randint(0,255),np.randint(0,255))
-#     data = [(go.Bar(x=typos, y=values, text=values, textposition = 'auto', name=video, marker=dict(color=color)))]
-#     py.image.save_as({'data':data, 'layout':go.Layout(title=" ".join(video.split("_"))+" (MB)")}, video, format='png', width=1280, height=720)
