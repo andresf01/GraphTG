@@ -47,10 +47,9 @@ for video_name in sorted(video_titles):
     for item in trace:
         data.append(item)
     
-    title = "{}".format(video_name)
+    title = "{}".format(" ".join(video_name.split("_")))
     
     if not (len(video_titles[video_name]) > 1):
-        # import random
         title += " - {}".format(list(video_titles[video_name].keys())[0].upper())
 
     py.image.save_as({'data':data, 'layout': {'title' : title, 'xaxis':{'title':'Preset'}, 'yaxis':{'title':'PSNR'}}}, video_name, format='png')
